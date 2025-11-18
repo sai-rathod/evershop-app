@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: evershop-app-state
+  labels:
+    app: ever-app
+spec:
+  serviceName: ever-app-headless
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ever-app
+  template:
+    metadata:
+      name: ever-db-pod
+      labels:
+        app: ever-app
+    spec:
+      containers:
+        - name: my-app
+          image: postgres:latest
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql
+          env:
+          - name: POSTGRES_DB
+            value: postgres
+          - name: POSTGRES_USER
+            value: postgres
+          - name: POSTGRES_PASSWORD
+            value: postgres
+
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 5Gi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ever-app-headless
+spec:
+  clusterIP: None
+  selector:
+    app: ever-app
+  ports:
+    - port: 5432
+      name: http
+
