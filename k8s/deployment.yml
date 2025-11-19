@@ -42,7 +42,7 @@ metadata:
   labels:
     app: ever-app
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: ever-app
   ports:
