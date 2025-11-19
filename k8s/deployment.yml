@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: evershop-app-con
-          image: sairathod/evershop-app:v1.0
+          image: sairathod/evershop-app:vv1.2
           ports:
             - containerPort: 3000
           resources:
