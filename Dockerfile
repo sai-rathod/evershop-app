@@ -6,6 +6,8 @@ COPY package*.json /app/
 
 RUN npm install -g npm@11.6.2
 
+RUN npm install -g @evershop/evershop
+
 COPY . . 
 
 RUN npm run build
