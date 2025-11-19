@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: evershop-app-state
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
   labels:
     app: ever-app
 spec:
