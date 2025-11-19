@@ -2,6 +2,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: ever-config
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 data:
   DB_HOST: "evershop-app-state-0.ever-app-headless"
   DB_NAME: "postgres"
