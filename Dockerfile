@@ -6,6 +6,8 @@ COPY package*.json ./
 
 RUN npm install -g npm@11.6.2
 
+RUN npm install -g @evershop/evershop
+
 RUN npm install
 
 COPY . .
