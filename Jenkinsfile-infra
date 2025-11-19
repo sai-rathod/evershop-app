@@ -1,0 +1,73 @@
+pipeline{
+    agent any
+    parameters{
+        choice(
+            name:"ACTION",
+            choices:['init','validate','plan','apply','destroy'],
+            description:"please choose the action to perform"
+            )
+    }
+    stages{
+        stage("code checkout"){
+            steps{
+                git branch: 'main', credentialsId: 'git-creds', url: 'https://github.com/sai-rathod/evershop-app.git'
+                sh "echo 'clonning successful'"
+            }
+        }
+        stage("terraform action"){
+            steps{
+                dir("iac"){
+                    script{
+                    withAWS(credentials: 'aws_creds', region: 'ap-south-1'){
+                        if (params.ACTION == 'init'){
+                            sh '''
+                            terraform init -upgrade
+                            echo "init successfull"
+                            '''
+                        }
+                        else if(params.ACTION =='validate'){
+                            sh'''
+                            terraform init
+                            terraform validate
+                            echo "the terraform code is valid"
+                            '''
+                        }
+                        else if(params.ACTION =='plan'){
+                            sh '''
+                            terraform init
+                            terraform plan -target=module.staging-network
+                            terraform plan -target=module.eks || echo"error expected if the network infra is not created first"
+                            '''
+                        }
+                        else if(params.ACTION =='apply'){
+                            sh'''
+                            terraform init
+                            terraform apply -target=module.staging-network --auto-approve && terraform apply --auto-approve
+                            echo "infrastructure created successfully"
+                            '''
+                        }
+                        else if(params.ACTION =='destroy'){
+                            sh'''
+                            terraform init
+                            terraform destroy --auto-approve
+                            echo "infrastructure destroyed successfully"
+                            '''
+                        }
+                    }
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always{
+            cleanWs()
+        }
+        success{
+            echo "pipeline was successful"
+        }
+        failure{
+            echo "the pipeline faild"
+        }
+    }
+}
