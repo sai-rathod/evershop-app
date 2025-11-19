@@ -4,3 +4,5 @@ node_modules/
 media/
 *.log
 *.tmp
+.terraform*
+terraform.tfstate*
