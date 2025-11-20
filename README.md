@@ -1,4 +1,4 @@
-# 🚀 Evershop E-commerce app:
+# 🚀 Evershop E-commerce Application:
 A production-ready CI/CD pipeline that automates infrastructure provisioning, application deployment, and monitoring on AWS EKS using industry-standard DevOps tools.
 
 ---
@@ -19,8 +19,8 @@ A production-ready CI/CD pipeline that automates infrastructure provisioning, ap
 ---
 
 ## 🏗️ Architecture
+<img width="1222" height="637" alt="diagram-export-11-20-2025-9_23_24-PM" src="https://github.com/user-attachments/assets/cf75b049-63d8-4651-8625-011efcc529fb" />
 
-![Architecture Diagram](./docs/images/architecture.png)
 
 *Complete CI/CD architecture showing Jenkins pipelines, AWS EKS cluster, ArgoCD GitOps, and monitoring stack*
 
@@ -98,10 +98,9 @@ Provisions complete AWS networking and EKS cluster infrastructure.
 - EKS Cluster with managed node groups
 - Security groups and IAM roles
 - Network load balancers
+  
+<img width="1920" height="1149" alt="terraform-pipeline" src="https://github.com/user-attachments/assets/ecad4030-c4ef-4e7f-a0ba-08e33ec07a5f" />
 
-![Infrastructure Pipeline](./docs/images/infra-pipeline.png)
-
----
 
 ### **Application Pipeline** (`Jenkinsfile`)
 
@@ -112,22 +111,7 @@ End-to-end CI/CD pipeline for application deployment.
 
 **Pipeline Stages:**
 
-```mermaid
-graph LR
-    A[Git Checkout] --> B[npm install]
-    B --> C[npm test]
-    C --> D[npm build]
-    D --> E[SonarQube Scan]
-    E --> F[Quality Gate]
-    F --> G[Trivy FS Scan]
-    G --> H[Docker Build]
-    H --> I[Docker Push]
-    I --> J[Trivy Image Scan]
-    J --> K[Update Manifests]
-    K --> L[Push to GitOps Repo]
-    L --> M[Deploy Helm Charts]
-    M --> N[ArgoCD Sync]
-```
+![evershop-pipeline](https://github.com/user-attachments/assets/402aa977-8e64-456f-86bf-94da06903f65)
 
 #### **Stage Details:**
 
@@ -145,8 +129,6 @@ graph LR
 12. **Push Manifests** - Commit and push updated manifests to GitOps repo
 13. **Install Tools** - Deploy ArgoCD, Prometheus, Grafana via Helm
 14. **ArgoCD Deploy** - Automatic sync and deployment to EKS
-
-![Application Pipeline](./docs/images/app-pipeline.png)
 
 ---
 
@@ -258,31 +240,44 @@ kubectl get applications -n argocd
 - **Scrapes**: Kubernetes metrics, application metrics, node metrics
 
 ### **Grafana**
-
 - **Purpose**: Visualization and dashboards
 - **Access**: `kubectl port-forward -n monitoring svc/grafana 3000:80`
 - **Default Credentials**: admin/admin (change on first login)
 - **Dashboards**: Kubernetes cluster, application performance, resource utilization
 
-![Grafana Dashboard](./docs/images/grafana-dashboard.png)
+![dashboard-2](https://github.com/user-attachments/assets/2cb5ef37-ee2c-49ef-955b-f83354f0285f)
+
+<br/>
+
+![dashboard-3](https://github.com/user-attachments/assets/02d93fb0-2670-47ff-98c3-b6ae7d85e719)
+
+<br/>
+
+![dashboard-5](https://github.com/user-attachments/assets/5aa8ceb3-4c29-4026-a733-bb6bf05de9da)
+
+<br/>
+
+![dashboard-4](https://github.com/user-attachments/assets/efff0225-ca54-47ae-9903-018b85006b3c)
 
 ---
 
 ## 📸 Screenshots
 
 ### SonarQube Analysis
-![SonarQube Results](./docs/images/sonarqube-scan.png)
+![quality-gate-3](https://github.com/user-attachments/assets/b7f81966-4f47-4dea-8d1d-06504e9dd03d)
 
 *Code quality metrics, security vulnerabilities, and technical debt*
 
 ---
 
+
 ### ArgoCD Application Tree
-![ArgoCD Tree](./docs/images/argocd-tree.png)
+![argocd-tree](https://github.com/user-attachments/assets/402b9d5d-c366-4782-b626-c7d8ce9153cd)
 
 *GitOps deployment status and resource hierarchy*
 
 ---
+
 
 ### Kubernetes Resources
 
