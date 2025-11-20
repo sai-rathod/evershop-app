@@ -3,20 +3,7 @@ A production-ready CI/CD pipeline that automates infrastructure provisioning, ap
 
 ---
 
-## 📋 Table of Contents
 
-- [Architecture](#-architecture)
-- [Tech Stack](#-tech-stack)
-- [Project Structure](#-project-structure)
-- [Prerequisites](#-prerequisites)
-- [Pipeline Overview](#-pipeline-overview)
-- [Setup Instructions](#-setup-instructions)
-- [Pipeline Execution](#-pipeline-execution)
-- [Monitoring](#-monitoring)
-- [Screenshots](#-screenshots)
-- [Troubleshooting](#-troubleshooting)
-
----
 
 ## 🏗️ Architecture
 <img width="1222" height="637" alt="diagram-export-11-20-2025-9_23_24-PM" src="https://github.com/user-attachments/assets/cf75b049-63d8-4651-8625-011efcc529fb" />
