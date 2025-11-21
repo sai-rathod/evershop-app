@@ -36,20 +36,22 @@ pipeline{
                             sh '''
                             terraform init
                             terraform plan -target=module.staging-network
-                            terraform plan -target=module.eks || echo"error expected if the network infra is not created first"
+                            terraform plan -target=module.eks || echo "error expected if the network infra is not created first"
                             '''
                         }
                         else if(params.ACTION =='apply'){
                             sh'''
                             terraform init
                             terraform apply -target=module.staging-network --auto-approve && terraform apply --auto-approve
+                            aws eks update-kubeconfig --region ap-south-1 --name app-cluster
                             echo "infrastructure created successfully"
                             '''
                         }
                         else if(params.ACTION =='destroy'){
                             sh'''
                             terraform init
-                            terraform destroy --auto-approve
+                            terraform destroy -target=module.eks --auto-approve
+                            terraform destroy -target=module.staging-network --auto-approve
                             echo "infrastructure destroyed successfully"
                             '''
                         }
